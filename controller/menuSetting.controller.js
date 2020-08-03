@@ -4,9 +4,48 @@ const router = express.Router()
 const Item = require('../models/Item.js')
 const Category = require('../models/Category.js')
 
-router.get('/', (req, res) => {
-  res.send("Hello")
+router.get('/', async (req, res, next) => {
+  try {
+    const items = await Item.find({})
+    const categories = await Category.find({})
+
+    res.status(200).json({
+      items,
+      categories
+    })
+  } catch(err) {
+    res.locals.error = {
+      message: "Can't get categories",
+      status: 500
+    }
+    next(err)
+  }
 })
+
+router.get('/category', async (req, res, next) => {
+  try {
+    res.status(200).send(await Category.find({}))
+  } catch(err) {
+    res.locals.error = {
+      message: "Can't get categories",
+      status: 500
+    }
+    next(err)
+  }
+})
+
+router.get('/item', async (req, res, next) => {
+  try {
+    res.status(200).send(await Item.find({}))
+  } catch(err) {
+    res.locals.error = {
+      message: "Can't get items",
+      status: 500
+    }
+    next(err)
+  }
+})
+
 
 router.post('/category', async (req, res, next) => {
   const { name, orderType } = req.body
