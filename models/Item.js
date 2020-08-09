@@ -11,15 +11,13 @@ const Item = mongoose.model('Item', new mongoose.Schema({
     required: true
   },
   orderType: {
-    type: String,
+    type: Array,
     trim: true,
-    uppercase: true,
     required: true
   },
   category_id: {
     type: String,
     trim: true,
-    uppercase: true,
     required: true
   }
 }, { timestamps: true }))

@@ -8,9 +8,8 @@ const Category = mongoose.model('Category', new mongoose.Schema({
     required: true
   },
   orderType: {
-    type: String,
+    type: Array,
     trim: true,
-    uppercase: true,
     required: true
   }
 }, { timestamps: true }))
