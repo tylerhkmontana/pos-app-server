@@ -99,7 +99,6 @@ router.put('/category/update', async (req, res, next) => {
 router.delete('/category/delete', async (req, res, next) => {
   const { id } = req.body
 
-  console.log(id)
   try {
     await Category.findByIdAndDelete(id)
     await Item.deleteMany({ category_id: id })
