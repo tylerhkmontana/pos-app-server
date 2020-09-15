@@ -115,6 +115,7 @@ router.delete('/category/delete', async (req, res, next) => {
 router.post('/item', async (req, res, next) => {
   const { category_id, name, price, orderType } = req.body
 
+  console.log(category_id)
   try {
     if(await Category.findById(category_id)) {
       await new Item({
@@ -142,11 +143,11 @@ router.post('/item', async (req, res, next) => {
 })
 
 router.put('/item/update', async (req, res, next) => {
-  const { id, name, price, orderType } = req.body
+  const { _id, name, price, orderType } = req.body
 
   try {
-    if(await Item.findById(id)) {
-      await Item.findByIdAndUpdate(id, { name, price, orderType })
+    if(await Item.findById(_id)) {
+      await Item.findByIdAndUpdate(_id, { name, price, orderType })
       res.status(200).send("Successfully updated the item")
     } else {
       res.locals.error = {
